@@ -1,0 +1,17 @@
+div
+  div(class="panel panel-default col-md-8")
+    div(class="panel-body")
+        div(ng-repeat="message in chatController.messages" class="row")
+          hr
+          div(class="col-md-2 col-sm-2") {{message.formatted}}
+          div(class="col-md-2 col-sm-2") {{message.author}}
+          div(class="col-md-6 col-sm-6") {{message.msg}}
+          div(class="col-md-2 col-sm-2")
+            div(class="btn-group")
+              label(class="btn btn-default" ng-model="radioModel" uib-btn-radio="'{{message.id}}Q'" ng-click="chatController.selectMessage(message, 'question', $event)" uncheckable)
+                | Q
+              label(class="btn btn-default" ng-model="radioModel" uib-btn-radio="'{{message.id}}A'" ng-click="chatController.selectMessage(message, 'answer', $event)" uncheckable)
+                | A
+
+
+

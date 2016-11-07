@@ -16,10 +16,6 @@ class States extends Config
             templateUrl: 'app/statistics/chat.html',
             controller: 'chatController',
             controllerAs: 'chatController'
-          noteView:
-            templateUrl: 'app/statistics/note.html',
-            controller: 'noteController',
-            controllerAs: 'noteController'
     .state 'parent.chat',
       url: '/chat/:chatId'
       parent: 'parent'
@@ -28,12 +24,3 @@ class States extends Config
           templateUrl: 'app/statistics/chat.html',
           controller: 'chatController',
           controllerAs: 'chatController'
-        noteView:
-          templateUrl: 'app/statistics/note.html',
-          controller: 'noteController',
-          controllerAs: 'noteController'
-
-
-
-
-

@@ -1,5 +1,5 @@
 class Statistics extends Controller
-  constructor: ($timeout, @toastr, @Chat, @Message, @$scope, @$log, @$state, @$rootScope) ->
+  constructor: ($timeout, @AggregatedStatistics, @toastr, @Chat, @$scope, @$log, @$state, @$rootScope) ->
     @chats = @Chat.query(@updateSelectedChat)
     @selectedChatName = 'Select chat...'
     @$scope.selectedChatId = null
@@ -9,6 +9,21 @@ class Statistics extends Controller
     @$scope.changeChat = @changeChat
     @$scope.loadMore = @loadMore
 
+    @AggregatedStatistics.query({
+      chatId: @$state.params.chatId,
+      start: '2016-11-04T15:53:00Z',
+      end: '2016-11-11T15:53:00Z',
+      periodLengthInHours: 2
+    }, @updateStatistics)
+
+
+  updateStatistics: (data) =>
+    @aggregatedStatistics = data
+    @$log.info("received statistics: " + @aggregatedStatistics)
+
+  open: () =>
+    @isOpen = !@isOpen
+
   updateSelectedChat: (data) =>
     chatId = @$state.params.chatId
     if chatId?
@@ -16,10 +31,3 @@ class Statistics extends Controller
       if (selectedChat?)
         @selectedChat = selectedChat
         @selectedChatName = @selectedChat.name
-
-  loadMore:() =>
-    @$rootScope.$emit('history.loadMore')
-
-
-
-

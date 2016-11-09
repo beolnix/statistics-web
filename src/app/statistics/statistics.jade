@@ -14,13 +14,45 @@ div(class="container")
               a(ng-href="#") Sources
 
 
+
   div(class="panel")
       //div(ui-view="chatView")
       //div(class="col-md-1")
       //div(ui-view="noteView")
 
-  div(id="chart")
-
+  h2
+    | Today
+  br
+  div(class="col-md-8")
+    div(id="day-chart")
+  div(class="col-md-4")
+    div(id="day-chart-pie")
   div(class="clearfix")
+
+  br
+  br
+
+  h2
+    | This week
+  br
+  div(class="col-md-8")
+    div(id="week-chart")
+  div(class="col-md-4")
+    div(id="week-chart-pie")
+  div(class="clearfix")
+
+  br
+  br
+
+  h2
+    | This month
+  br
+  div(class="col-md-8")
+    div(id="month-chart")
+  div(class="col-md-4")
+    div(id="month-chart-pie")
+  div(class="clearfix")
+
+
 
 

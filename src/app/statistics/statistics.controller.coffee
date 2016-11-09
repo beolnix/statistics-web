@@ -9,21 +9,140 @@ class Statistics extends Controller
     @$scope.changeChat = @changeChat
     @$scope.loadMore = @loadMore
 
-    todayDateStr = new Date().toISOString().slice(0,10)
-    tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0,10)
+    todayDateStr = moment().startOf('day').format('YYYY-MM-DD')
+    tomorrowDate = moment().endOf('day').format('YYYY-MM-DD')
 
     @AggregatedStatistics.query({
       chatId: @$state.params.chatId,
       start: todayDateStr + 'T00:00:00Z',
-      end: tomorrowDate + 'T00:00:00Z',
+      end: tomorrowDate + 'T23:59:50Z',
       periodLengthInHours: 1
-    }, @updateStatistics)
+    }, @drawDayStatistics)
 
+    weekStartStr = moment().startOf('week').format('YYYY-MM-DD')
+    weekEndStr = moment().endOf('week').format('YYYY-MM-DD')
 
-  updateStatistics: (data) =>
+    @AggregatedStatistics.query({
+      chatId: @$state.params.chatId,
+      start: weekStartStr + 'T00:00:00Z',
+      end: weekEndStr + 'T23:59:50Z',
+      periodLengthInHours: 24
+    }, @drawWeekStatistics)
+
+    monthStartStr = moment().startOf('month').format('YYYY-MM-DD')
+    monthEndStr = moment().endOf('month').format('YYYY-MM-DD')
+
+    @AggregatedStatistics.query({
+      chatId: @$state.params.chatId,
+      start: monthStartStr + 'T00:00:00Z',
+      end: monthEndStr + 'T23:59:50Z',
+      periodLengthInHours: (24 * 7)
+    }, @drawMonthStatistics)
+
+  drawWeekStatistics: (data) =>
+    columns = @convertToColumns(data)
+
+    chart = c3.generate({
+      bindto: '#week-chart',
+      data:
+        x: 'x',
+        columns: columns,
+        type: 'bar',
+      axis:
+        x:
+          type: 'timeseries',
+          localtime: true,
+          tick:
+            format: '%Y-%m-%d'
+      bar:
+        width:
+          ratio: 0.5
+    })
+    dataset = @calculateUserTotals(data)
+    pieChart = c3.generate({
+      bindto: '#week-chart-pie'
+      data:
+        columns: dataset,
+        type : 'pie',
+    })
+
+  drawMonthStatistics: (data) =>
+    columns = @convertToColumns(data)
+
+    chart = c3.generate({
+      bindto: '#month-chart',
+      data:
+        x: 'x',
+        columns: columns,
+        type: 'bar',
+      axis:
+        x:
+          type: 'timeseries',
+          localtime: true,
+          tick:
+            format: '%Y-%m-%d'
+      bar:
+        width:
+          ratio: 0.5
+    })
+    dataset = @calculateUserTotals(data)
+    pieChart = c3.generate({
+      bindto: '#month-chart-pie'
+      data:
+        columns: dataset,
+        type : 'pie',
+    })
+
+  drawDayStatistics: (data) =>
     @aggregatedStatistics = data
-    @$log.info("received statistics: " + @aggregatedStatistics)
 
+    columns = @convertToColumns(data)
+
+    chart = c3.generate({
+      bindto: '#day-chart',
+      data: {
+        x: 'x',
+        columns: columns,
+        type: 'bar',
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          localtime: true,
+          tick: {
+            format: '%H:%M:%S'
+          }
+        }
+      },
+      bar: {
+        width: {
+          ratio: 0.5
+        }
+      }
+    })
+
+    dataset = @calculateUserTotals(data)
+    pieChart = c3.generate({
+      bindto: '#day-chart-pie'
+      data:
+        columns: dataset,
+        type : 'pie',
+    })
+
+  calculateUserTotals: (data) ->
+    resultMap = {}
+    dataset = []
+    for period in data.periods
+      for user, metric of period.userSpecificMetricsMap
+        value = resultMap[user]
+        if !value
+          value = 0
+        resultMap[user] = value + metric.metricsMap.msgCount
+    for user, metricValue of resultMap
+      dataset.push ([user, metricValue])
+    return dataset
+
+  convertToColumns: (data) ->
     columns  = []
     list = ['x']
     columns.push list
@@ -42,36 +161,8 @@ class Statistics extends Controller
       for metric in metricsList
         dataset.push metric
       columns.push dataset
+    return columns
 
-    test = []
-
-    chart = c3.generate({
-      bindto: '#chart',
-      data: {
-        x: 'x',
-        columns: columns,
-        type: 'bar',
-        groups: [
-          ['data1', 'data2', 'data3']
-        ]
-      },
-      axis: {
-        x: {
-          type: 'timeseries',
-          localtime: true,
-          tick: {
-            format: '%H:%M:%S'
-          }
-        }
-      },
-      bar: {
-        width: {
-          ratio: 0.5
-        }
-      }
-    })
-
-    test
 
 
   open: () =>

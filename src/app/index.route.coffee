@@ -11,16 +11,7 @@ class States extends Config
       .state 'parent.home',
         url: '/'
         parent: 'parent'
-        views:
-          chatView:
-            templateUrl: 'app/statistics/chat.html',
-            controller: 'chatController',
-            controllerAs: 'chatController'
     .state 'parent.chat',
       url: '/chat/:chatId'
       parent: 'parent'
-      views:
-        chatView:
-          templateUrl: 'app/statistics/chat.html',
-          controller: 'chatController',
-          controllerAs: 'chatController'
+

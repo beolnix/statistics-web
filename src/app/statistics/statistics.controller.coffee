@@ -9,10 +9,13 @@ class Statistics extends Controller
     @$scope.changeChat = @changeChat
     @$scope.loadMore = @loadMore
 
+    todayDateStr = new Date().toISOString().slice(0,10);
+    tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0,10);
+
     @AggregatedStatistics.query({
       chatId: @$state.params.chatId,
-      start: '2016-11-06T00:00:00Z',
-      end: '2016-11-07T00:00:00Z',
+      start: todayDateStr + 'T00:00:00Z',
+      end: tomorrowDate + 'T00:00:00Z',
       periodLengthInHours: 1
     }, @updateStatistics)
 

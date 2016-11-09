@@ -11,15 +11,65 @@ class Statistics extends Controller
 
     @AggregatedStatistics.query({
       chatId: @$state.params.chatId,
-      start: '2016-11-04T15:53:00Z',
-      end: '2016-11-11T15:53:00Z',
-      periodLengthInHours: 2
+      start: '2016-11-06T00:00:00Z',
+      end: '2016-11-07T00:00:00Z',
+      periodLengthInHours: 1
     }, @updateStatistics)
 
 
   updateStatistics: (data) =>
     @aggregatedStatistics = data
     @$log.info("received statistics: " + @aggregatedStatistics)
+
+    columns  = []
+    list = ['x']
+    columns.push list
+    resultMap = {}
+    for period in data.periods
+      list.push Date.parse(period['periodStart'])
+      for user, metric of period.userSpecificMetricsMap
+        dataset = resultMap[user]
+        if !dataset
+          dataset = []
+          resultMap[user] = dataset
+        dataset.push metric.metricsMap.msgCount
+    for user, metricsList of resultMap
+      dataset = []
+      dataset.push user
+      for metric in metricsList
+        dataset.push metric
+      columns.push dataset
+
+    test = []
+
+    chart = c3.generate({
+      bindto: '#chart',
+      data: {
+        x: 'x',
+        columns: columns,
+        type: 'bar',
+        groups: [
+          ['data1', 'data2', 'data3']
+        ]
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          localtime: true,
+          tick: {
+            format: '%H:%M:%S'
+          }
+        }
+      },
+      bar: {
+        width: {
+          ratio: 0.5
+        }
+      }
+    })
+
+    test
+
 
   open: () =>
     @isOpen = !@isOpen

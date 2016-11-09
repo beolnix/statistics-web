@@ -9,8 +9,8 @@ class Statistics extends Controller
     @$scope.changeChat = @changeChat
     @$scope.loadMore = @loadMore
 
-    todayDateStr = new Date().toISOString().slice(0,10);
-    tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0,10);
+    todayDateStr = new Date().toISOString().slice(0,10)
+    tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0,10)
 
     @AggregatedStatistics.query({
       chatId: @$state.params.chatId,

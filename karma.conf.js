@@ -51,7 +51,7 @@ module.exports = function(config) {
 
     ngHtml2JsPreprocessor: {
       stripPrefix: '(' + conf.paths.src + '/|' + conf.paths.tmp + '/serve/)',
-      moduleName: 'historyWeb'
+      moduleName: 'statisticsWeb'
     },
 
     logLevel: 'WARN',

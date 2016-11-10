@@ -41,6 +41,7 @@ class Statistics extends Controller
 
   drawWeekStatistics: (data) =>
     columns = @convertToColumns(data)
+    groups = @convertToDataGroups(data)
 
     chart = c3.generate({
       bindto: '#week-chart',
@@ -48,6 +49,7 @@ class Statistics extends Controller
         x: 'x',
         columns: columns,
         type: 'bar',
+        groups: [groups]
       axis:
         x:
           type: 'timeseries',
@@ -68,6 +70,7 @@ class Statistics extends Controller
 
   drawMonthStatistics: (data) =>
     columns = @convertToColumns(data)
+    groups = @convertToDataGroups(data)
 
     chart = c3.generate({
       bindto: '#month-chart',
@@ -75,6 +78,7 @@ class Statistics extends Controller
         x: 'x',
         columns: columns,
         type: 'bar',
+        groups: [groups]
       axis:
         x:
           type: 'timeseries',
@@ -97,6 +101,7 @@ class Statistics extends Controller
     @aggregatedStatistics = data
 
     columns = @convertToColumns(data)
+    groups = @convertToDataGroups(data)
 
     chart = c3.generate({
       bindto: '#day-chart',
@@ -104,6 +109,7 @@ class Statistics extends Controller
         x: 'x',
         columns: columns,
         type: 'bar',
+        groups: [groups]
       },
       axis: {
         x: {
@@ -162,6 +168,16 @@ class Statistics extends Controller
         dataset.push metric
       columns.push dataset
     return columns
+
+  convertToDataGroups: (data) ->
+    dataset = {}
+    for period in data.periods
+      for user, metric of period.userSpecificMetricsMap
+        dataset[user] = true
+    result = []
+    for user, value of dataset
+      result.push user
+    return result
 
 
 

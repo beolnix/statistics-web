@@ -15,7 +15,7 @@ $ gulp build
 If everything is fine, the result will be in the **distr** directory
 
 ## Dependencies
-* [backend](https://github.com/beolnix/marvin-statistics) must be up and alive:
+* [backend](https://github.com/beolnix/marvin-statistics) must be up and running
 * the content of the distr library must be served by something ... for example by **nginx**
  
 ## Development

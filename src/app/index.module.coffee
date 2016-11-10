@@ -4,4 +4,8 @@ class App extends App
     'ui.router'
     'ui.bootstrap'
     'toastr'
+    'btford.markdown'
   ]
+
+
+

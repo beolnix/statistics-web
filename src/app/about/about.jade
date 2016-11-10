@@ -3,35 +3,12 @@ div(class="container")
     nav(class="navbar navbar-static-top navbar-inverse")
       div(class="container-fluid")
         div(class="navbar-header")
-          a(class="navbar-brand" href="#")
+          a(class="navbar-brand" href="#/about")
             span(class="glyphicon glyphicon-home")
               |&nbsp;Statistics
-        div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-6")
-          ul(class="nav navbar-nav")
-            li
-              a(ng-href="#/about") About
-            li
-              a(ng-href="#/sources") Sources
 
   div(class="panel")
-    h2 Project details
-
-    p The project consist of several parts
-      ul
-        li Bot
-        li Bot plugin
-        li REST web-service
-        li Web interface to REST web-service
-
-    h3 Bot
-    p
-      |Marvin is a bot with dynamic osgi based plugin system.
-      |&nbsp;Right now it supports IRC, Skyp and Telegram protocols only but it was designed with support of other protocols in mind.
-    p
-      | Please find more details about it on a github:
-      a(href="https://github.com/beolnix/marvin")
-        |&nbsp;https://github.com/beolnix/marvin
-
+    div(btf-markdown ng-include="'app/about/readme.md'")
 
 
 

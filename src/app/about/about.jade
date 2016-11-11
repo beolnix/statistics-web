@@ -7,23 +7,40 @@ div(class="container")
             span(class="glyphicon glyphicon-home")
               |&nbsp;Statistics
 
-  h2 Component Diagram
-  br
-  br
-  div(class="container")
-    div(class="row text-center")
-      img(src="assets/images/marvin_component_diagram_resized.png" width=600 height=398)
+
+    div(class="col-lg-7 col-md-10 col-sm-10")
+      h2 Component Diagram
+      br
+      br
+      div(class="container")
+          img(src="/assets/images/marvin_component_diagram_resized.png" width=600 height=398)
+
+          br
+          br
+          p &nbsp;Please, find full size diagram using the
+            a(href="assets/images/marvin_component_diagram.png") &nbsp;following link
 
       br
       br
-      p &nbsp;Please, find full size diagram using the
-        a(href="assets/images/marvin_component_diagram.png") &nbsp;following link
+    div(class="col-lg-5 col-md-10 col-sm-10")
+      div(tabset active="active")
+        div(tab index="0" heading="Marvin bot")
+          br
+          br
+          div(btf-markdown ng-include="'app/about/bot.md'")
+        div(tab index="1" heading="Plugin")
+          br
+          br
+          div(btf-markdown ng-include="'app/about/plugin.md'")
+        div(tab index="2" heading="Web-service")
+          br
+          br
+          div(btf-markdown ng-include="'app/about/web-service.md'")
+        div(tab index="3" heading="Web-interface")
+          br
+          br
+          div(btf-markdown ng-include="'app/about/web-interface.md'")
 
-  br
-  br
-
-  div(class="panel")
-    div(btf-markdown ng-include="'app/about/readme.md'")
 
 
 

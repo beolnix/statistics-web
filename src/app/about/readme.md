@@ -1,4 +1,6 @@
 ## Project details
+
+---------
 The project consist of four:
 
 * Bot
@@ -6,7 +8,12 @@ The project consist of four:
 * REST web-service
 * Web interface to REST web-service
 
-### Bot
+&nbsp;
+&nbsp;
+&nbsp;
+## Bot
+
+---------
 Marvin is a bot with dynamic osgi based plugin system. Right now it supports IRC, Skype and Telegram protocols only but it was designed with support of other protocols in mind.
 
 Sources: [github](https://github.com/beolnix/marvin)
@@ -19,7 +26,12 @@ Technologies stack:
   * spring
   * osgi
 
-### Bot plugin
+&nbsp;
+&nbsp;
+&nbsp;
+## Bot plugin
+
+---------
 It is an osgi plugin for the bot. It counts messages sent by users and pushes the gathered statistics to the RESTful web-service over https every 15s.
 
 Sources: [github](https://github.com/beolnix/marvin-statistics-plugin)
@@ -38,9 +50,13 @@ Technologies:
  * spring
  * feign - generates REST http client based on java interface
  * ribbon - client side load balancer
+ 
+&nbsp;
+&nbsp;
+&nbsp;
+## RESTful web-service
 
-
-### RESTful web-service
+---------
 Restful micro web-service to collect statistics gathered by the bot and exposes endpoints for the webinterface to fetch aggregated statistics.
 
 REST interface documentation: [swagger-ui](https://statistics.buildloft.com/swagger/swagger-ui.html)
@@ -59,7 +75,12 @@ Technologis:
  * spring
  * mongo driver - the classic one
 
-### Web interface
+&nbsp;
+&nbsp;
+&nbsp;
+## Web interface
+
+---------
 Something written on coffescript which draws fancy charts you see when you open link to the statistics provided by the bot plugin.
 
 Sources: [github](https://github.com/beolnix/statistics-web)

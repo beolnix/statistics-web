@@ -39,6 +39,9 @@ class Statistics extends Controller
       periodLengthInHours: (24 * 7)
     }, @drawMonthStatistics)
 
+  selectPercentageTab: (tab, event) =>
+    log.info(event)
+
   drawWeekStatistics: (data) =>
     columns = @convertToColumns(data)
     groups = @convertToDataGroups(data)

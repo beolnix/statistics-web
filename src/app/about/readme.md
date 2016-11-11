@@ -1,5 +1,5 @@
 ## Project details
-The project consist of several parts:
+The project consist of four:
 
 * Bot
 * Bot plugin
@@ -73,7 +73,8 @@ Technologies:
  * **npm** & **bower** & **gulp** 
  * **coffescript**
  * **angular**
- * **c3js** - char lib
+ * **bootstrap**
+ * **c3js** - chart lib
  * ... dozen of other js frameworks, they are just works but I know almost nothing about them
 
 

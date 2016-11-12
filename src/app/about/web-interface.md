@@ -13,4 +13,3 @@ Technologies:
  * **angular**
  * **bootstrap**
  * **c3js** - chart lib
- * ... dozen of other js frameworks, they are just works but I know almost nothing about them
